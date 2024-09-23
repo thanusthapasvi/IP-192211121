@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="home_styles.css">
+    <script>
+        let mobileRechargeDate;
+        function showSection(section) {
+            document.getElementById('due-bills').style.display = 'none';
+            document.getElementById('about').style.display = 'none';
+            document.getElementById('contact-us').style.display = 'none';
+            document.getElementById(section).style.display = 'block';
+        }
+
+        function generateRandomDate() {
+            const today = new Date();
+            const dueDate = new Date(today);
+            dueDate.setDate(today.getDate() + Math.floor(Math.random() * 31));
+            const year = dueDate.getFullYear();
+            const month = String(dueDate.getMonth() + 1).padStart(2, '0');
+            const day = String(dueDate.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function generateRandomBill(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function isDueSoon(date) {
+            const today = new Date();
+            const dueDate = new Date(date);
+            const timeDiff = dueDate - today;
+            const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            return daysDiff <= 5;
+        }
+
+        function displayDueBills() {
+            mobileRechargeDate = generateRandomDate();//for gettin same vale in payment page
+
+            const settopboxBill = `₹${generateRandomBill(600, 1500)}`;
+            const wifiBill = `₹${generateRandomBill(300, 1000)}`;
+            const electricBill = `₹${generateRandomBill(200, 1200)}`;
+            const waterBill = `₹${generateRandomBill(100, 500)}`;
+            const fastagBill = `₹${generateRandomBill(100, 500)}`;
+
+            const settopboxDate = generateRandomDate();
+            const wifiDate = generateRandomDate();
+            const electricDate = generateRandomDate();
+            const waterDate = generateRandomDate();
+            const fastagDate = generateRandomDate();
+
+            document.getElementById('mobile-recharge').innerHTML = `
+                <div class="bill-detail">
+                    <h3>Mobile Recharge</h3>
+                    <img src="mobile.png" alt="Mobile Logo">
+                    <br><br>
+                    <label for="plan">Select Plan:</label>
+                    <select id="plan" name="plan">
+                        <option value="300">₹300 - 1.5GB/day</option>
+                        <option value="500">₹500 - 2GB/day</option>
+                        <option value="700">₹700 - 2.5GB/day</option>
+                    </select>
+                    <p>Date: ${mobileRechargeDate}</p>
+                    <button onclick="redirectMobileRecharge()">Recharge Now</button>
+                </div>
+            `;
+
+            document.getElementById('settopbox-bill').innerHTML = `
+                <div class="bill-detail">
+                    <h3>Set Top Box Bill</h3>
+                    <img src="setop.png" alt="Set Top Box Logo">
+                    <p>Amount: ${settopboxBill}</p>
+                    <p>Date: ${settopboxDate}</p>
+                    <button onclick="redirectToPaymentPage('${settopboxBill}', '${settopboxDate}')">Pay Now</button>
+                </div>
+            `;
+            document.getElementById('wifi-bill').innerHTML = `
+                <div class="bill-detail">
+                    <h3>WiFi Bill</h3>
+                    <img src="wifi.png" alt="WiFi Logo">
+                    <br><br>
+                    <p>Amount: ${wifiBill}</p>
+                    <p>Date: ${wifiDate}</p>
+                    <button onclick="redirectToPaymentPage('${wifiBill}', '${wifiDate}')">Pay Now</button>
+                </div>
+            `;
+            document.getElementById('electric-bill').innerHTML = `
+                <div class="bill-detail">
+                    <h3>Electric Bill</h3>
+                    <img src="electric.png" alt="Electric Logo">
+                    <p>Amount: ${electricBill}</p>
+                    <p>Date: ${electricDate}</p>
+                    <button onclick="redirectToPaymentPage('${electricBill}', '${electricDate}')">Pay Now</button>
+                </div>
+            `;
+            document.getElementById('water-bill').innerHTML = `
+                <div class="bill-detail">
+                    <h3>Water Bill</h3>
+                    <img src="water.png" alt="Water Logo">
+                    <p>Amount: ${waterBill}</p>
+                    <p>Date: ${waterDate}</p>
+                    <button onclick="redirectToPaymentPage('${waterBill}', '${waterDate}')">Pay Now</button>
+                </div>
+            `;
+            document.getElementById('fastag-bill').innerHTML = `
+                <div class="bill-detail">
+                    <h3>FASTag Bill</h3>
+                    <img src="fastag.png" alt="FASTag Logo">
+                    <p>Amount: ${fastagBill}</p>
+                    <p>Date: ${fastagDate}</p>
+                    <button onclick="redirectToPaymentPage('${fastagBill}', '${fastagDate}')">Pay Now</button>
+                </div>
+            `;
+
+            [mobileRechargeDate, settopboxDate, wifiDate, electricDate, waterDate, fastagDate].forEach((date, index) => {
+                if (isDueSoon(date)) {
+                    const elementId = ['mobile-recharge', 'settopbox-bill', 'wifi-bill', 'electric-bill', 'water-bill', 'fastag-bill'][index];
+                    document.querySelector(`#${elementId}`).style.color = 'red';
+                    document.querySelector(`#${elementId}`).style.fontWeight = 'bold';
+                }
+            });
+        }
+
+        function redirectMobileRecharge() {
+            const selectedPlan = document.getElementById('plan').value;
+            const RechargeDate = mobileRechargeDate;
+            window.location.href = `bill_payment.html?amount=${encodeURIComponent(selectedPlan)}&due_date=${encodeURIComponent(RechargeDate)}`;
+        }
+
+        function redirectToPaymentPage(amount, dueDate) {
+            window.location.href = `bill_payment.html?amount=${encodeURIComponent(amount)}&due_date=${encodeURIComponent(dueDate)}`;
+        }
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const phone = urlParams.get('phone');
+
+            if (phone) {
+                document.getElementById('user-phone').innerText = `Welcome!  ${phone}`;
+            } else {
+                window.location.href = 'index.html';
+            }
+            displayDueBills();
+            showSection('due-bills');
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <span id="user-phone"></span>
+        <div class="title">
+            Seizapay
+        </div>
+        <div class="navbutton">
+            <button onclick="showSection('due-bills')">Due Bills</button>
+            <button onclick="showSection('about')">About</button>
+            <button onclick="showSection('contact-us')">Contact Us</button>
+            <button onclick="window.location.href='index.html">Log out</button>
+        </div>
+        </header>
+    <div id="due-bills" class="content">
+        <h2>Due Bills</h2>
+        <div class="bills-grid">
+            <div class="bill-item" id="mobile-recharge"></div>
+            <div class="bill-item" id="settopbox-bill"></div>
+            <div class="bill-item" id="wifi-bill"></div>
+            <div class="bill-item" id="electric-bill"></div>
+            <div class="bill-item" id="water-bill"></div>
+            <div class="bill-item" id="fastag-bill"></div>
+        </div>
+    </div>
+
+    <div id="about" class="content" style="display:none;">
+        <h2>About</h2>
+        <div class="box">
+            <h1>Why Use SeizaPay?</h1>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <p><span class="highlight">Convenience at Your Fingertips:</span> Pay all your bills in one place, saving time and effort.</p>
+                </li>
+                <li class="feature-item">
+                    <p><span class="highlight">Stay Organized:</span> Track all your payments on one platform and never miss a due date again.</p>
+                </li>
+                <li class="feature-item">
+                    <p><span class="highlight">Secure Transactions:</span> Your data is protected with top-level encryption.</p>
+                </li>
+                <li class="feature-item">
+                    <p><span class="highlight">Multi-Device Support:</span> Seamless experience across all your devices.</p>
+                </li>
+                <li class="feature-item">
+                    <p><span class="highlight">Instant Payment Notifications:</span> Real-time updates for complete control.</p>
+                </li>
+                <li class="feature-item">
+                    <p><span class="highlight">Easy Setup:</span> Get started quickly and link your accounts in minutes.</p>
+                </li>
+                <li class="feature-item">
+                    <p><span class="highlight">Save Time & Money:</span> Automate payments and avoid late fees.</p>
+                </li>
+                <li class="feature-item">
+                    <p><span class="highlight">Payment History & Insights:</span> Easily view your payment history for better financial management.</p>
+                </li>
+                <li class="feature-item">
+                    <p><span class="highlight">No Hidden Fees:</span> Transparent pricing with no surprise charges.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="contact-us" class="content" style="display:none;">
+        <h2>Contact Us</h2>
+        <div class="box">
+            <p>
+                <strong>Created by</strong>
+                <br><br><i>G. Bhavesh Kumar</i>
+                    <a href="https://www.instagram.com/unknown_disfigure">
+                        <img src="instalogo.png" alt="instaLogo1" class="instalogo1">
+                    </a>
+                    <a href="https://www.linkedin.com/in/bhavesh-kumar-gourabathini-566628287">
+                        <img src="linkdinlogo.png" alt="linkdinLogo1" class="linkdinlogo1">
+                    </a>
+                <br><br><i>T. Thanus Thapasvi</i>
+                    <a href="https://www.instagram.com/thanush_thapasvi">
+                        <img src="instalogo.png" alt="instaLogo2" class="instalogo2">
+                    </a>
+                    <a href="https://www.linkedin.com/in/thanush-thapasvi-thummala-8637a0282">
+                        <img src="linkdinlogo.png" alt="linkdinLogo2" class="linkdinlogo2">
+                    </a>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
