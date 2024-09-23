@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 75px;
+    padding: 20px;
+    background-attachment: fixed;
+    background-size: cover;
+    transition: background-image 1s ease-in-out;
+
+}
+
+.container {
+    width: 350px;
+    margin: 20px auto;
+    background-color: whitesmoke;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.bill-details p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.payment-methods {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.payment-methods button {
+    flex: 1;
+    padding: 10px;
+    margin: 0 5px;
+    background-color: goldenrod;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.payment-form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="number"], select, input[type="date"], input[type="month"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #45a049;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.note {
+    margin-top: 20px;
+    font-size: 14px;
+    color: orangered;
+    text-align: center;
+}
+
+.note button {
+    padding: 8px 10px;
+    color: white;
+    margin-top: 20px;
+    font-size: 16px;
+    background: linear-gradient(120deg, goldenrod, lightskyblue);
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}

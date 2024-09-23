@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Payment</title>
+    <link rel="stylesheet" href="bill_styles.css">
+    <script>
+        function showPaymentForm(paymentType) {
+            document.getElementById('credit-debit-form').style.display = 'none';
+            document.getElementById('netbanking-form').style.display = 'none';
+            document.getElementById('upi-form').style.display = 'none';
+
+            if (paymentType === 'credit-debit') {
+                document.getElementById('credit-debit-form').style.display = 'block';
+            } else if (paymentType === 'netbanking') {
+                document.getElementById('netbanking-form').style.display = 'block';
+            } else if (paymentType === 'upi') {
+                document.getElementById('upi-form').style.display = 'block';
+            }
+
+            document.getElementById('selected-payment-method').value = paymentType;
+        }
+
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        function populateBillDetails() {
+            const dueDate = getQueryParam('due_date');
+            const amount = getQueryParam('amount');
+            if (dueDate && amount) {
+                document.getElementById('due-date').textContent = dueDate;
+                document.getElementById('payable-amount').textContent = amount;
+            }
+        }
+
+        window.onload = populateBillDetails;
+    </script>
+</head>
+<body>
+    <script>
+        const images = [
+            'cover home page.webp',
+            'fuji-mountain-with-milky-way-night.jpg'
+        ];
+        let currentImageIndex = 0;
+        function changeBackground() {
+            document.body.style.backgroundImage = `url('${images[currentImageIndex]}')`;
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+        }
+        setInterval(changeBackground, 8000);
+        changeBackground();
+    </script>
+
+    <div class="container">
+        <h1>Bill Payment</h1>
+
+        <div class="bill-details">
+            <p><strong>Due Date:</strong> <span id="due-date"></span></p>
+            <p><strong>Payable Amount:</strong> <span id="payable-amount"></span></p>
+        </div>
+
+        <div class="payment-methods">
+            <button type="button" onclick="showPaymentForm('credit-debit')">Credit/Debit Card</button>
+            <button type="button" onclick="showPaymentForm('netbanking')">Net Banking</button>
+            <button type="button" onclick="showPaymentForm('upi')">UPI</button>
+        </div>
+
+        <form onsubmit="return handleSubmit(event)">
+    <div id="credit-debit-form" style="display:none;">
+        <label for="card-number">Card Number:</label>
+        <input type="text" id="card-number" name="card-number" minlength="16" maxlength="16" placeholder="XXXX-XXXX-XXXX-XXXX"><br><br>
+        <label for="expiry-date">Expiry Date:</label>
+        <input type="month" id="expiry-date" name="expiry-date"><br><br>
+        <label for="cvv">CVV:</label>
+        <input type="password" id="cvv" name="cvv" minlength="3" maxlength="3" placeholder="XXX"><br><br>
+    </div>
+
+    <div id="netbanking-form" style="display:none;">
+        <label for="bank-name">Select Bank:</label>
+        <select id="bank-name" name="bank-name">
+            <option value="sbi">SBI</option>
+            <option value="hdfc">HDFC</option>
+            <option value="icici">ICICI</option>
+            <option value="axis">Axis</option>
+        </select><br><br>
+        <label for="account-number">Account Number:</label>
+        <input type="number" id="account-number" name="account-number" minlength="12" maxlength="12" placeholder="Account Number"><br><br>
+    </div>
+
+    <div id="upi-form" style="display:none;">
+        <label for="upi-id">UPI ID:</label>
+        <input type="text" id="upi-id" name="upi-id" placeholder="Your UPI ID"><br><br>
+    </div>
+
+    <input type="hidden" id="selected-payment-method" name="payment-method" value="">
+    <button type="submit">Pay Now</button>
+    </form>
+        <div class="note">
+            <button onclick="window.location.href='home.html'">Back to Home</button>
+            <p>Note: A fine of ₹10 will be added for each day after the due date.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

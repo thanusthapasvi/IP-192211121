@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Forgot Password</title>
+    <link rel="stylesheet" href="forpass.css"> 
+    <script>
+        function handlePasswordReset(event) {
+            event.preventDefault();
+            const phone = document.getElementById("phone").value;
+            if (phone && /^\d{10}$/.test(phone)) { 
+                alert("A password reset link has been sent to your mobile number " + phone);
+                window.location.href = "index.html";
+            } else {
+                document.getElementById("error-message").textContent = "Please enter a valid 10-digit mobile number.";
+            }
+        }
+    </script>
+</head>
+<body>
+    <img src="translogoseiza.png" alt="Logo" class="logo">
+    <div class="container">
+        <h2 style="text-align: center;">Forgot Password</h2>
+        <form onsubmit="handlePasswordReset(event)">
+            <input type="text" id="phone" name="phone" placeholder="Enter your mobile number" required>
+            
+            <span id="error-message" style="color: red; font-size: 12px;"></span>
+            
+            <button type="submit">Send Reset Link</button>
+            <a href="index.html">Back to Login</a>
+        </form>
+    </div>
+</body>
+</html>

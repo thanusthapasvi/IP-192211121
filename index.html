@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="LoginBG.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+
+            document.getElementById('phone-error').innerHTML = '';
+            document.getElementById('password-error').innerHTML = '';
+
+            const userData = JSON.parse(localStorage.getItem(phone));
+
+            if (userData) {
+                if (userData.password === password) {
+                    window.location.href = `home.html?phone=${encodeURIComponent(phone)}`;
+                } else {
+                    document.getElementById('password-error').innerHTML = 'Incorrect password. Please try again.';
+                }
+            } else {
+                document.getElementById('phone-error').innerHTML = 'User not found. Please create an account.';
+            }
+        }
+    </script>
+    <style>
+        .top-right {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .about-link {
+            font-size: 1.6em;
+            font-family: 'Poppins', sans-serif;
+            color: yellow;
+            text-decoration: none;
+        }
+        .about-link:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <img src="translogoseiza.png" alt="Logo" class="logo">
+
+    <div class="top-right">
+        <a href="aboutl.html" class="about-link">About Us</a>
+    </div>
+
+    <div class="container">
+        <h2 style="text-align: center;">Login</h2>
+        <form onsubmit="handleLogin(event)">
+            <label for="phone">Phone Number</label>
+            <input type="text" id="phone" name="phone" placeholder="Enter your Phone Number" required>
+            <div id="phone-error" style="color: red;"></div>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <div id="password-error" style="color: red;"></div>
+
+            <button type="submit">Login</button>
+            <div class="form-links">
+                <a href="forpass.html">Forgot password?</a>
+                <a href="creacc.html">Create account</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="footer">
+        © 2024 SeizaPay. All Rights Reserved.
+    </div>
+</body>
+</html>

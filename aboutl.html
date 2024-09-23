@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Use SeizaPay?</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('aboutpic.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #444;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: #FF6F61;
+            font-weight: 600;
+            font-size: 2.5em;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-item {
+            background-color: #f0f5fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .feature-item:hover {
+            background-color: #dbe7f1;
+            transform: scale(1.02);
+        }
+
+        .feature-item i {
+            font-size: 28px;
+            color: #FF6F61;
+            margin-right: 20px;
+        }
+
+        p {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .highlight {
+            color: #FF6F61;
+            font-weight: 600;
+        }
+
+        .login-link {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 1.1em;
+            color: #FF6F61;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="login-link">Back to Login</a>
+        <h1>Why Use SeizaPay?</h1>
+        <ul class="feature-list">
+            <li class="feature-item">
+                <i class="fas fa-clock"></i>
+                <p><span class="highlight">Convenience at Your Fingertips:</span> Pay all your bills in one place, saving time and effort.</p>
+            </li>
+            <li class="feature-item">
+                <i class="fas fa-clipboard-list"></i>
+                <p><span class="highlight">Stay Organized:</span> Track all your payments on one platform and never miss a due date again.</p>
+            </li>
+            <li class="feature-item">
+                <i class="fas fa-shield-alt"></i>
+                <p><span class="highlight">Secure Transactions:</span> Your data is protected with top-level encryption.</p>
+            </li>
+            <li class="feature-item">
+                <i class="fas fa-mobile-alt"></i>
+                <p><span class="highlight">Multi-Device Support:</span> Seamless experience across all your devices.</p>
+            </li>
+            <li class="feature-item">
+                <i class="fas fa-bell"></i>
+                <p><span class="highlight">Instant Payment Notifications:</span> Real-time updates for complete control.</p>
+            </li>
+            <li class="feature-item">
+                <i class="fas fa-sync-alt"></i>
+                <p><span class="highlight">Easy Setup:</span> Get started quickly and link your accounts in minutes.</p>
+            </li>
+            <li class="feature-item">
+                <i class="fas fa-money-bill-wave"></i>
+                <p><span class="highlight">Save Time & Money:</span> Automate payments and avoid late fees.</p>
+            </li>
+            <li class="feature-item">
+                <i class="fas fa-dollar-sign"></i>
+                <p><span class="highlight">No Hidden Fees:</span> Transparent pricing with no surprise charges.</p>
+            </li>
+        </ul>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
